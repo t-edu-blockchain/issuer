@@ -1,7 +1,11 @@
 import "./globals.css";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { Layout } from 'antd';
-
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'T-edu Issuer',
+}
 
 export default function RootLayout({
   children,
