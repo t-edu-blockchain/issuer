@@ -6,8 +6,9 @@ import {
   Input,
   Typography,
 } from 'antd';
+import Link from 'next/link';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const formItemLayout = {
   labelCol: {
@@ -39,7 +40,7 @@ const Register: React.FC = () => {
   return (
     <div style={{ padding: '40px 0', backgroundColor: '#f9f9f9' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: 'white', padding: '30px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)' }}>
-        <Title level={2} style={{ textAlign: 'center', marginBottom: '30px' }}>Student Register</Title>
+        <Title level={2} style={{ textAlign: 'center', marginBottom: '30px' }}>Register</Title>
         <Form
           {...formItemLayout}
           form={form}
@@ -120,6 +121,12 @@ const Register: React.FC = () => {
               Register
             </Button>
           </Form.Item>
+            <Text>
+            You already have account? 
+            <Link href="/register" passHref>
+            Login
+            </Link>
+        </Text>
         </Form>
       </div>
     </div>

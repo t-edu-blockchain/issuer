@@ -3,6 +3,9 @@ import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Typography } from 'antd';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+
+const {Text} = Typography
 
 type FieldType = {
   email?: string;
@@ -33,7 +36,7 @@ const Login = () => {
       }}
     >
       <Typography.Title level={2} style={{ textAlign: 'center', marginBottom: '30px' }}>
-        Student Login
+        Login
       </Typography.Title>
 
       <Form
@@ -76,6 +79,15 @@ const Login = () => {
             Submit
           </Button>
         </Form.Item>
+
+        <Text>
+        You do not have account? 
+        <Link href="/register" passHref>
+        Register
+        </Link>
+        </Text>
+
+
       </Form>
     </div>
   </div>
