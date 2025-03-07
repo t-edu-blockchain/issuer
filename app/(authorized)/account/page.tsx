@@ -1,7 +1,7 @@
 export default function Account() {
   return (
       <h1> 
-        account page
+        Account
       </h1> 
 
   );

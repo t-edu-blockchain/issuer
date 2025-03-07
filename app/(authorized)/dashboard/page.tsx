@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Modal, QRCode, Card, Typography, Row, Col, Input } from 'antd';
+import { Button, Modal, QRCode, Table, Typography, Input } from 'antd';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -12,6 +12,7 @@ interface Certificate {
   issueDate: string;
   validity: string;
 }
+
 
 const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -46,6 +47,38 @@ const Dashboard: React.FC = () => {
     },
   ];
 
+    // Columns definition for the Ant Design Table
+    const columns = [
+      {
+        title: 'Certificate ID',
+        dataIndex: 'certificateId',
+        key: 'certificateId',
+      },
+      {
+        title: 'Recipient Name',
+        dataIndex: 'recipientName',
+        key: 'recipientName',
+      },
+      {
+        title: 'Issue Date',
+        dataIndex: 'issueDate',
+        key: 'issueDate',
+      },
+      {
+        title: 'Validity',
+        dataIndex: 'validity',
+        key: 'validity',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text: any, record: Certificate) => (
+          <Button type="primary" onClick={() => handleShare(record)}>
+            Share
+          </Button>
+        ),
+      },
+    ];
   // Filter certificates based on the search query
   const filteredCertificates = certificates.filter(
     (certificate) =>
@@ -53,7 +86,7 @@ const Dashboard: React.FC = () => {
       certificate.certificateId.includes(searchQuery)
   );
 
-  const showModal = (certificate: Certificate): void => {
+  const handleShare = (certificate: Certificate): void => {
     setSelectedCertificate(certificate);
     setIsModalOpen(true);
   };
@@ -77,22 +110,13 @@ const Dashboard: React.FC = () => {
         style={{ marginBottom: '20px', width: '100%' }}
       />
 
-      <Row gutter={[16, 16]}>
-        {filteredCertificates.map((certificate) => (
-          <Col key={certificate.certificateId} span={8}>
-            <Card>
-              <Title level={4}>Certificate Information</Title>
-              <p><strong>Certificate ID:</strong> {certificate.certificateId}</p>
-              <p><strong>Recipient Name:</strong> {certificate.recipientName}</p>
-              <p><strong>Issue Date:</strong> {certificate.issueDate}</p>
-              <p><strong>Validity:</strong> {certificate.validity}</p>
-              <Button type="primary" onClick={() => showModal(certificate)}>
-                Share
-              </Button>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {/* Table to display certificates */}
+      <Table
+        columns={columns}
+        dataSource={filteredCertificates}
+        rowKey="certificateId"
+        pagination={false} // Disable pagination, you can enable it if needed
+      />
 
       {selectedCertificate && (
         <Modal
@@ -115,3 +139,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+

@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Modal, Input, Card, Typography, Row, Col, Form, message } from 'antd';
-import { v4 as uuidv4 } from 'uuid';  // To generate unique certificate IDs
+import { Button, Input, Card, Typography, Form, message, Row, Col } from 'antd';
+import { v4 as uuidv4 } from 'uuid'; // To generate unique certificate IDs
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 // Define types for certificate data
 interface Certificate {
@@ -14,7 +14,6 @@ interface Certificate {
 }
 
 const IssueCertificate: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newCertificate, setNewCertificate] = useState<Certificate>({
     certificateId: '',
     recipientName: '',
@@ -22,7 +21,7 @@ const IssueCertificate: React.FC = () => {
     validity: '',
   });
   const [certificates, setCertificates] = useState<Certificate[]>([]);
-  
+
   // Handle form input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     setNewCertificate({ ...newCertificate, [field]: e.target.value });
@@ -37,11 +36,10 @@ const IssueCertificate: React.FC = () => {
 
     const newCert: Certificate = {
       ...newCertificate,
-      certificateId: uuidv4(),  // Generate a unique certificate ID
+      certificateId: uuidv4(), // Generate a unique certificate ID
     };
 
     setCertificates([...certificates, newCert]);
-    setIsModalOpen(false);
     setNewCertificate({
       certificateId: '',
       recipientName: '',
@@ -51,39 +49,11 @@ const IssueCertificate: React.FC = () => {
     message.success('Certificate issued successfully!');
   };
 
-  // Modal for creating a new certificate
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '30px', maxWidth: '800px', margin: 'auto' }}>
       <Title level={2}>Issue a New Certificate</Title>
-      
-      {/* Button to open modal */}
-      <Button type="primary" onClick={showModal} style={{ marginBottom: '20px' }}>
-        Issue New Certificate
-      </Button>
 
-      {/* Modal for issuing new certificate */}
-      <Modal
-        title="Issue New Certificate"
-        open={isModalOpen}
-        onOk={handleIssueCertificate}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Cancel
-          </Button>,
-          <Button key="submit" type="primary" onClick={handleIssueCertificate}>
-            Issue Certificate
-          </Button>,
-        ]}
-      >
+      <Card title="Create New Certificate" style={{ marginBottom: '20px' }}>
         <Form layout="vertical">
           <Form.Item label="Recipient Name">
             <Input
@@ -92,6 +62,7 @@ const IssueCertificate: React.FC = () => {
               placeholder="Enter the recipient's name"
             />
           </Form.Item>
+
           <Form.Item label="Issue Date">
             <Input
               value={newCertificate.issueDate}
@@ -99,6 +70,7 @@ const IssueCertificate: React.FC = () => {
               placeholder="Enter the issue date"
             />
           </Form.Item>
+
           <Form.Item label="Validity">
             <Input
               value={newCertificate.validity}
@@ -106,24 +78,16 @@ const IssueCertificate: React.FC = () => {
               placeholder="Enter validity period (e.g., Lifetime, 1 Year)"
             />
           </Form.Item>
-        </Form>
-      </Modal>
 
-      {/* List of issued certificates */}
-      <Title level={3}>Issued Certificates</Title>
-      <Row gutter={[16, 16]}>
-        {certificates.map((certificate) => (
-          <Col key={certificate.certificateId} span={8}>
-            <Card>
-              <Title level={4}>Certificate Information</Title>
-              <p><strong>Certificate ID:</strong> {certificate.certificateId}</p>
-              <p><strong>Recipient Name:</strong> {certificate.recipientName}</p>
-              <p><strong>Issue Date:</strong> {certificate.issueDate}</p>
-              <p><strong>Validity:</strong> {certificate.validity}</p>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+          <Button
+            type="primary"
+            onClick={handleIssueCertificate}
+            style={{ width: '100%' }}
+          >
+            Issue Certificate
+          </Button>
+        </Form>
+      </Card>
     </div>
   );
 };
