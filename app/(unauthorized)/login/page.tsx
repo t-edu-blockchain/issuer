@@ -2,7 +2,7 @@
 import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Typography } from 'antd';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const {Text} = Typography
