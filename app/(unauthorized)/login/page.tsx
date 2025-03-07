@@ -2,21 +2,25 @@
 import React from 'react';
 import type { FormProps } from 'antd';
 import { Button, Form, Input, Typography } from 'antd';
+import { useRouter } from 'next/router';
 
 type FieldType = {
   email?: string;
   password?: string;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-  console.log('Success:', values);
-};
+const Login = () => {
+    const router = useRouter()
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
+    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+      console.log('Success:', values);
+      router.push("/home")
+    };
 
-const Login = () => (
+    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+    };
+    return (
   <div style={{ padding: '40px 0', backgroundColor: '#f0f2f5' }}>
     <div
       style={{
@@ -75,7 +79,7 @@ const Login = () => (
       </Form>
     </div>
   </div>
-);
+) };
 
 export default Login;
 
