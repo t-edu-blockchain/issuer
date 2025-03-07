@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Input, Card, Typography, Form, message, Row, Col } from 'antd';
+import { Button, Input, Card, Typography, Form, message} from 'antd';
 import { v4 as uuidv4 } from 'uuid'; // To generate unique certificate IDs
 
-const { Title, Text } = Typography;
+const { Title} = Typography;
 
 // Define types for certificate data
 interface Certificate {

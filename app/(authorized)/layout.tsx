@@ -1,11 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined,  HomeOutlined, DashboardOutlined, FileSearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import {useRouter} from 'next/navigation'
 
@@ -30,32 +25,33 @@ export default function DashboardLayout({
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'Home',
-              onClick: () => router.push('/home')
-            },
-            {
-              key: '2',
-              icon: <UserOutlined />,
-              label: 'Dashboard',
-              onClick: () => router.push('/dashboard')
-            },
-            {
-              key: '3',
-              icon: <UserOutlined />,
-              label: 'Issue Certificate',
-              onClick: () => router.push('/issue')
-            },
-            {
-              key: '4',
-              icon: <UploadOutlined />,
-              label: 'Account',
-              onClick: () => router.push('/account')
-            },
-          ]}
+        items={[
+          {
+            key: '1',
+            icon: <HomeOutlined />,
+            label: 'Home',
+            onClick: () => router.push('/home')
+          },
+          {
+            key: '2',
+            icon: <DashboardOutlined />,
+            label: 'Dashboard',
+            onClick: () => router.push('/dashboard')
+          },
+          {
+            key: '3',
+            icon: <FileSearchOutlined />,
+            label: 'Issue Certificate',
+            onClick: () => router.push('/issue')
+          },
+          {
+            key: '4',
+            icon: <UserOutlined />,
+            label: 'Account',
+            onClick: () => router.push('/account')
+          },
+        ]}
+
         />
       </Sider>
       <Layout>
